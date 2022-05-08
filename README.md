@@ -2,6 +2,8 @@
 
 本仓库用于个人图床。
 
+> 方案参考：https://www.iszy.cc/posts/ufjg58/
+
 
 # Usage
 
