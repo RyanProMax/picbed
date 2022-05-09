@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { ElButton, ElMessage } from 'element-plus';
+import { ElMessage } from 'element-plus';
 import { checkUserConfig, fetchRepoFiles, getUserConfig } from '~/utils';
 
 const router = useRouter();
 
+const loading = ref<boolean>(false);
 const list = ref<any>([]);
 
 onMounted(async() => {
@@ -17,11 +18,9 @@ onMounted(async() => {
   }
 
   try {
+    loading.value = true;
     list.value = await fetchRepoFiles(userConfig);
-    ElMessage({
-      message: '请求异常',
-      type: 'warning'
-    });
+    loading.value = false;
   }
   catch (e: any) {
     ElMessage({
@@ -34,10 +33,10 @@ onMounted(async() => {
 
 <template>
   <div
-    w:w="full" w:max-w="900px" w:m="t-30px" w:grid="~ cols-4 <md:cols-2 <lg:cols-3 gap-4 auto-rows-auto"
+    v-loading="loading"
+    w:w="full" w:max-w="900px" w:min-h="480px" w:m="t-30px" w:grid="~ cols-4 <md:cols-2 <lg:cols-3 gap-4 auto-rows-auto"
     w:overflow="hidden"
   >
     <img v-for="item in list" :key="item.name" :src="item.download_url" w:cursor="pointer">
-    <ElButton>123</ElButton>
   </div>
 </template>

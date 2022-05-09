@@ -18,7 +18,7 @@ const handleNavigate = (path: string) => route.path !== path && (router.push(pat
     <SvgIcon name="config" w:cursor="pointer" w:m="r-4" @click="handleNavigate('/config')" />
     <SvgIcon v-show="!isDark" name="sun" w:cursor="pointer" @click="toggleDark()" />
     <SvgIcon v-show="isDark" name="moon" w:cursor="pointer" @click="toggleDark()" />
-    <a href="https://github.com/RyanProMax/vue-vite-starter" target="__blank">
+    <a href="https://github.com/RyanProMax/picbed" target="__blank">
       <SvgIcon name="github" w:cursor="pointer" w:m="l-4" />
     </a>
   </div>

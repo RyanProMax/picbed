@@ -1,6 +1,6 @@
 {
-  "name": "vue-vite-starter",
-  "version": "1.0.1",
+  "name": "picbed",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "vite",
