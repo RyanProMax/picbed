@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@element-plus/icons-vue': ^1.1.4
   '@ryanpromax/eslint-config': ^2.0.0
   '@types/node': ^17.0.23
   '@types/nprogress': ^0.2.0
@@ -23,6 +24,7 @@ specifiers:
   windicss: ^3.5.1
 
 dependencies:
+  '@element-plus/icons-vue': 1.1.4_vue@3.2.31
   '@vueuse/core': 8.2.5_vue@3.2.31
   axios: 0.27.2
   element-plus: 2.2.0_vue@3.2.31
