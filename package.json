@@ -35,6 +35,9 @@
     "windicss": "^3.5.1"
   },
   "eslintConfig": {
-    "extends": "@ryanpromax"
+    "extends": "@ryanpromax",
+    "rules": {
+      "no-console": "off"
+    }
   }
 }
