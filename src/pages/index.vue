@@ -96,7 +96,7 @@ onBeforeMount(() => {
       w:grid="~ cols-4 <md:cols-2 <lg:cols-3 gap-4 auto-rows-auto" w:overflow="hidden"
     >
       <img
-        v-for="(item, idx) in list" :key="item.name" :src="`${item.download_url}?t=${Date.now()}`" w:cursor="pointer"
+        v-for="(item, idx) in list" :key="item.name" :src="`${item.download_url}`" w:cursor="pointer"
         @click="handlePreview(idx)"
       >
     </div>
