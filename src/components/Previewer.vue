@@ -1,21 +1,35 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import { copyString } from '~/utils';
+
 const { urlList, onClose } = defineProps<{
-  urlList: string[]
+  urlList: any[]
   onClose: () => void
 }>();
 
 const currIndex = ref(0);
+const currImage = computed(() => urlList[currIndex.value]);
 </script>
 
 <template>
   <div v-if="Boolean(urlList.length)" class="picbed-previewer" @click="onClose()">
     <div class="picbed-previewer__main" w:p="48px <md:24px" w:m="<md:100px 50px" @click.stop="">
-      <img :src="urlList[currIndex]" class="picbed-previewer__image">
-      <div w:m="t-48px <md:t-24px" w:max-w="full">
-        <p w:text="break-all gray-500">
-          url: {{ urlList[currIndex] }}
-        </p>
+      <img :src="urlList[currIndex].cdn_url" class="picbed-previewer__image">
+      <div w:m="t-48px <md:t-24px" w:w="full">
+        <el-input v-model="currImage.download_url" disabled w:w="full">
+          <template #append>
+            <el-button @click="copyString(currImage.download_url)">
+              copy url
+            </el-button>
+          </template>
+        </el-input>
+        <el-input v-model="currImage.cdn_url" disabled class="picbed-previewer__url">
+          <template #append>
+            <el-button @click="copyString(currImage.cdn_url)">
+              copy CDN url
+            </el-button>
+          </template>
+        </el-input>
       </div>
     </div>
   </div>
@@ -46,6 +60,10 @@ const currIndex = ref(0);
     width: 100%;
     max-height: 360px;
     object-fit: cover;
+  }
+
+  &__url {
+    margin-top: 24px;
   }
 }
 </style>

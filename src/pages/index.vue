@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router';
 import { ElButton, ElMessage, ElMessageBox } from 'element-plus';
 import { Plus } from '@element-plus/icons-vue';
 import { useFileSystemAccess } from '@vueuse/core';
-import { checkUserConfig, fetchRepoFiles, fetchUploadFile, getUserConfig } from '~/utils';
+import { checkUserConfig, fetchRepoFiles, fetchUploadFile, getUserConfig, urlToCDNUrl } from '~/utils';
 import Previewer from '~/components/Previewer.vue';
 
 const router = useRouter();
@@ -22,7 +22,11 @@ const fetchList = async() => {
 
   try {
     loading.value = true;
-    list.value = await fetchRepoFiles(userConfig);
+    const data = await fetchRepoFiles(userConfig);
+    list.value = data.map((x: any) => ({
+      ...x,
+      cdn_url: urlToCDNUrl(x.download_url)
+    }));
     loading.value = false;
   }
   catch (e: any) {
@@ -81,7 +85,7 @@ const handleUpload = async() => {
 };
 
 const handlePreview = (index: number) => {
-  urlList.value = list.value.slice(index).concat(list.value.slice(0, index)).map((x: any) => x.download_url);
+  urlList.value = list.value.slice(index).concat(list.value.slice(0, index));
 };
 
 onBeforeMount(() => {
@@ -96,7 +100,7 @@ onBeforeMount(() => {
       w:grid="~ cols-4 <md:cols-2 <lg:cols-3 gap-4 auto-rows-auto" w:overflow="hidden"
     >
       <img
-        v-for="(item, idx) in list" :key="item.name" :src="`${item.download_url}`" w:cursor="pointer"
+        v-for="(item, idx) in list" :key="item.name" :src="`${item.cdn_url}`" w:cursor="pointer"
         @click="handlePreview(idx)"
       >
     </div>
